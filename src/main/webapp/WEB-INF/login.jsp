@@ -24,11 +24,7 @@
                         <a class="nav-link active" aria-current="page" href="add-post">Add post</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search" action="${pageContext.request.contextPath}/" method="get">
-                    <input name="searchName" class="form-control me-2" type="search" placeholder="Search"
-                           aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+
             </div>
         </div>
     </nav>

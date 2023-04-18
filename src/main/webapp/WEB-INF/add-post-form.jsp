@@ -39,11 +39,9 @@
                         </li>
                     </c:if>
                 </ul>
-                <form class="d-flex" role="search" action="${pageContext.request.contextPath}/" method="get">
-                    <input name="searchName" class="form-control me-2" type="search" placeholder="Search"
-                           aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                <c:if test="${not empty sessionScope.username}">
+                    <div class="alert alert-light m-0" role="alert">Hi! ${sessionScope.username.getEmail()}</div>
+                </c:if>
             </div>
         </div>
     </nav>

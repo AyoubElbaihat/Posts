@@ -1,6 +1,7 @@
 package com.example.posts.model;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 public class Post {
 
@@ -11,13 +12,25 @@ public class Post {
     private String pictureUrl;
     private LocalDateTime createdAt;
 
-    public Post(Long id, String title, String author, String content, String pictureUrl) {
+    public Post(Long id) {
+        this.id = id;
+    }
+
+    public Post(Long id, String title, String author, String content, String pictureUrl, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
         this.pictureUrl = pictureUrl;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = createdAt;
+    }
+
+    public Post(String title, String author, String content, String pictureUrl, LocalDateTime createdAt) {
+        this.title = title;
+        this.author = author;
+        this.content = content;
+        this.pictureUrl = pictureUrl;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -37,6 +50,7 @@ public class Post {
     }
 
     public LocalDateTime getCreatedAt() {
+
         return createdAt;
     }
 
