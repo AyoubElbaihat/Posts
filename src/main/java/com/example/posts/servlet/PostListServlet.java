@@ -19,6 +19,7 @@ public class PostListServlet extends HttpServlet {
         PostService postService = new PostService();
         List<Post> postList = postService.fetchAllPosts();
 
+
         req.setAttribute("posts", postList);
         req
                 .getRequestDispatcher("/WEB-INF/post-list.jsp")

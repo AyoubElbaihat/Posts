@@ -32,7 +32,7 @@ public class SignupServlet extends HttpServlet {
         boolean isInvalid = password.isBlank() || email.isBlank();
 
         if (isInvalid) {
-//            req.setAttribute("form_validation_error", true);
+            req.setAttribute("isError1", true);
         } else {
             try {
                 UserService userService = new UserService();
@@ -40,9 +40,9 @@ public class SignupServlet extends HttpServlet {
 
 
             } catch (UserAlreadyExistException e) {
-//                req.setAttribute("duplicate_user_error", true);
+                req.setAttribute("isError", true);
             } catch (Exception e) {
-//                req.setAttribute("register_error", true);
+                req.setAttribute("isError1", true);
             }
         }
         req.setAttribute("username", email);

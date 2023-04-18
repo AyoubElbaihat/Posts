@@ -27,8 +27,9 @@ public class AddPostServlet extends HttpServlet {
         String author = req.getParameter("author");
         String content = req.getParameter("content");
 
-        new PostService().createPost(title, author, content);
-
+//        new PostService().createPost(title, author, content);
+        PostService postService = new PostService();
+        postService.createPost(title, author, content);
         resp.sendRedirect("posts");
 
     }
