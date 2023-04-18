@@ -43,8 +43,8 @@ public class PostJdbcDao implements PostDao{
                 String author = resultSet.getString("author");
                 String content = resultSet.getString("content");
                 String pictureUrl = resultSet.getString("pictureUrl");
-
-                LocalDateTime createdAt = resultSet.getTimestamp("createdAt").toLocalDateTime();
+                Timestamp createdAtTimestamp = resultSet.getTimestamp("createdAt");
+                LocalDateTime createdAt = createdAtTimestamp != null ? createdAtTimestamp.toLocalDateTime() : null;
                 postList.add(new Post(id, title, author,content,pictureUrl,createdAt));
             }
         }catch (SQLException e){
