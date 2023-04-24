@@ -30,6 +30,15 @@ public class PostService {
         postJdbcDao.create(p);
         return p;
     }
+    public Post updatePost(Integer id, String title, String author, String content) {
+        PostJdbcDao postJdbcDao = new PostJdbcDao();
+        LocalDateTime time = LocalDateTime.now();
+        Post p = new Post( id, title, author, content, "https://picsum.photos/200/300?random=" + ++idSequence);
+
+        postJdbcDao.update(p);
+        return p;
+    }
+
 
 
 }

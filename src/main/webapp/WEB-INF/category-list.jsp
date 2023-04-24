@@ -1,8 +1,9 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>The Blog | Edit Post</title>
+    <title>The Blog | Category List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
@@ -26,21 +27,26 @@
                         <a class="nav-link active" aria-current="page" href="add-post">Add post</a>
                     </li>
                     <c:if test="${empty sessionScope.username}">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="login">Log in</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="signup">Sign up</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="login">Log in</a>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link active" aria-current="page" href="signup">Sign up</a>
+                    </li>
                     </c:if>
                     <c:if test="${not empty sessionScope.username}">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="logout">Login out</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="logout">Login out</a>
+                    </li>
                     </c:if>
                 </ul>
+<%--                <form class="d-flex" role="search" action="${pageContext.request.contextPath}/" method="get">--%>
+<%--                    <input name="searchName" class="form-control me-2" type="search" placeholder="Search"--%>
+<%--                           aria-label="Search">--%>
+<%--                    <button class="btn btn-outline-success" type="submit">Search</button>--%>
+<%--                </form>--%>
                 <c:if test="${not empty sessionScope.username}">
-                    <div class="alert alert-light m-0" role="alert">Hi! ${sessionScope.username.getEmail()}</div>
+                <div class="alert alert-light m-0" role="alert">Hi! ${sessionScope.username.getEmail()}</div>
                 </c:if>
             </div>
         </div>
@@ -48,21 +54,19 @@
 </header>
 
 <div class="container">
-    <h1>Edit post</h1>
+    <h1>Category</h1>
 
-    <form action="${pageContext.request.contextPath}/edit" method="post">
-        <label>Id:</label><br>
-        <input type="text" name="id" value="${post.id}"><br>
-        <label>Title:</label><br>
-        <input type="text" name="title" value="${post.title}"><br>
-        <label>Author:</label><br>
-        <input type="text" name="author" value="${post.author}"><br>
-        <label>Content:</label><br>
-        <textarea name="content" value="${post.content}"></textarea><br>
-        <button type="submit">Save</button>
-    </form>
-
-
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 align-content-center">
+        <c:forEach var="c" items="${categorys}">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${c.nameCategory}</h5>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
 </div>
 
 

@@ -8,7 +8,7 @@
     <title>Poste List Edit Delete</title>
 </head>
 <body>
-<h1>Users List</h1>
+<h1>Posts List</h1>
 
 
 

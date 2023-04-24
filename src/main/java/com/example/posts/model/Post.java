@@ -5,24 +5,42 @@ import java.time.ZoneOffset;
 
 public class Post {
 
-    private Long id;
+    private Integer id;
     private String title;
     private String author;
     private String content;
     private String pictureUrl;
     private LocalDateTime createdAt;
 
-    public Post(Long id) {
+    public Post() {
+    }
+
+    public Post(Integer id) {
         this.id = id;
     }
 
-    public Post(Long id, String title, String author, String content, String pictureUrl, LocalDateTime createdAt) {
+    public Post(Integer id, String title, String author, String content) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.content = content;
+    }
+
+    public Post(Integer id, String title, String author, String content, String pictureUrl, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
         this.pictureUrl = pictureUrl;
         this.createdAt = createdAt;
+    }
+
+    public Post(Integer id, String title, String author, String content, String pictureUrl) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.content = content;
+        this.pictureUrl = pictureUrl;
     }
 
     public Post(String title, String author, String content, String pictureUrl, LocalDateTime createdAt) {
@@ -33,7 +51,7 @@ public class Post {
         this.createdAt = createdAt;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -57,4 +75,29 @@ public class Post {
     public String getPictureUrl() {
         return pictureUrl;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
 }

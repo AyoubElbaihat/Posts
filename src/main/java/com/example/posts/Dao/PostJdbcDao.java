@@ -1,6 +1,7 @@
 package com.example.posts.Dao;
 
 import com.example.posts.model.Post;
+import com.example.posts.model.User;
 
 
 import java.sql.*;
@@ -38,7 +39,7 @@ public class PostJdbcDao implements PostDao{
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT id,title,author,content,pictureUrl,createdAt FROM posts");
             while (resultSet.next()){
-                Long id = resultSet.getLong("id");
+                Integer id = resultSet.getInt("id");
                 String title = resultSet.getString("title");
                 String author = resultSet.getString("author");
                 String content = resultSet.getString("content");
@@ -54,22 +55,48 @@ public class PostJdbcDao implements PostDao{
     }
 
     @Override
-    public Post findById(Long integer) {
-        return null;
+
+    public Post findById(Integer integer) {
+
+        Post postFound = null;
+
+        Connection connection = ConnectionManager.getInstance();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT id, title,author,content,pictureUrl,createdAt FROM posts WHERE id=?");
+            statement.setInt(1, integer);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String title = resultSet.getString("title");
+                String author = resultSet.getString("author");
+                String content = resultSet.getString("content");
+                String pictureUrl = resultSet.getString("pictureUrl");
+                Timestamp createdAtTimestamp = resultSet.getTimestamp("createdAt");
+                LocalDateTime createdAt = createdAtTimestamp != null ? createdAtTimestamp.toLocalDateTime() : null;
+//
+                postFound = new Post(id,title, author,content,pictureUrl,createdAt);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return postFound;
     }
 
     @Override
     public void update(Post entity) {
         Connection connection = ConnectionManager.getInstance();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE posts SET title=?, author=?, content=?, pictureUrl=?, createdAt=? WHERE id=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE posts SET title=?, author=?, content=?, pictureUrl=? WHERE id=?");
             preparedStatement.setString(1, entity.getTitle());
             preparedStatement.setString(2, entity.getAuthor());
             preparedStatement.setString(3, entity.getContent());
             preparedStatement.setString(4, entity.getPictureUrl());
-            preparedStatement.setDate(5, new java.sql.Date(entity.getCreatedAt().toInstant(ZoneOffset.UTC).toEpochMilli()));
-            preparedStatement.setLong(6, entity.getId());
+//            preparedStatement.setDate(5, new java.sql.Date(entity.getCreatedAt().toInstant(ZoneOffset.UTC).toEpochMilli()));
+//            preparedStatement.setDate(5, new java.sql.Date(entity.getCreatedAt().toInstant(ZoneOffset.UTC).toEpochMilli()));
+
+            preparedStatement.setInt(5, entity.getId());
             preparedStatement.executeUpdate();
+            System.out.println("done");
         } catch (SQLException e) {
             e.printStackTrace();
         }
