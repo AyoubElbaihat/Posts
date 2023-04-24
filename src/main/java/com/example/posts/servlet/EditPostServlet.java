@@ -10,15 +10,25 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/edit")
 public class EditPostServlet extends HttpServlet {
-    PostJdbcDao postJdbcDao = new PostJdbcDao();
+
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        PostJdbcDao postJdbcDao = new PostJdbcDao();
+        List<Post> postList = postJdbcDao.findAll();
+        int id = Integer.parseInt(req.getParameter("id"));
+        Post post = postJdbcDao.findById(id);
+        req.setAttribute("id",id);
+        req.setAttribute("title",post.getTitle());
+        req.setAttribute("author",post.getAuthor());
+        req.setAttribute("content",post.getContent());
+        req.setAttribute("pictureUrl",post.getContent());
+        req.setAttribute("posts",postList);
         req
                 .getRequestDispatcher("/WEB-INF/edit-post-form.jsp")
                 .forward(req, resp);
@@ -35,9 +45,10 @@ public class EditPostServlet extends HttpServlet {
         String title = req.getParameter("title");
         String author = req.getParameter("author");
         String content = req.getParameter("content");
+        String pictureUrl = req.getParameter("pictureUrl");
         PostService postService = new PostService();
-        postService.updatePost(id ,title, author, content);
-        resp.sendRedirect("posts");
+        postService.updatePost(id ,title, author, content,pictureUrl);
+        resp.sendRedirect("/posts");
 
 
     }

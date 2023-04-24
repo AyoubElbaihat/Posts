@@ -32,7 +32,7 @@ public class Post {
         this.author = author;
         this.content = content;
         this.pictureUrl = pictureUrl;
-        this.createdAt = createdAt;
+        this.createdAt = LocalDateTime.now();
     }
 
     public Post(Integer id, String title, String author, String content, String pictureUrl) {
@@ -48,7 +48,7 @@ public class Post {
         this.author = author;
         this.content = content;
         this.pictureUrl = pictureUrl;
-        this.createdAt = createdAt;
+        this.createdAt = LocalDateTime.now();
     }
 
     public Integer getId() {

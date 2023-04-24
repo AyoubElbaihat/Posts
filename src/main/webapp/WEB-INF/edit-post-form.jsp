@@ -51,14 +51,15 @@
     <h1>Edit post</h1>
 
     <form action="${pageContext.request.contextPath}/edit" method="post">
-        <label>Id:</label><br>
-        <input type="text" name="id" value="${post.id}"><br>
+        <input type="hidden" name="id" value="${id}"><br>
         <label>Title:</label><br>
-        <input type="text" name="title" value="${post.title}"><br>
+        <input type="text" name="title" value="${title}"><br>
         <label>Author:</label><br>
-        <input type="text" name="author" value="${post.author}"><br>
+        <input type="text" name="author" value="${author}"><br>
+        <label>Image:</label><br>
+        <input type="text" name="pictureUrl" value="${pictureUrl}"><br>
         <label>Content:</label><br>
-        <textarea name="content" value="${post.content}"></textarea><br>
+        <textarea name="content" value="${content}"></textarea><br>
         <button type="submit">Save</button>
     </form>
 

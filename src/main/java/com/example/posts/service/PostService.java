@@ -22,18 +22,18 @@ public class PostService {
 
 
 
-    public Post createPost(String title, String author, String content) {
+    public Post createPost(String title, String author, String content,String pictureUrl) {
         PostJdbcDao postJdbcDao = new PostJdbcDao();
         LocalDateTime time = LocalDateTime.now();
-        Post p = new Post( title, author, content, "https://picsum.photos/200/300?random=" + ++idSequence,time);
+        Post p = new Post( title, author, content, pictureUrl,time);
 
         postJdbcDao.create(p);
         return p;
     }
-    public Post updatePost(Integer id, String title, String author, String content) {
+    public Post updatePost(Integer id, String title, String author, String content, String pictureUrl) {
         PostJdbcDao postJdbcDao = new PostJdbcDao();
         LocalDateTime time = LocalDateTime.now();
-        Post p = new Post( id, title, author, content, "https://picsum.photos/200/300?random=" + ++idSequence);
+        Post p = new Post( id, title, author, content, pictureUrl);
 
         postJdbcDao.update(p);
         return p;

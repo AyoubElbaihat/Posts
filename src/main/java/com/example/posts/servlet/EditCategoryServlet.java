@@ -1,6 +1,9 @@
 package com.example.posts.servlet;
 
+import com.example.posts.Dao.CategoryJdbcDao;
 import com.example.posts.Dao.PostJdbcDao;
+import com.example.posts.model.Category;
+import com.example.posts.service.CategoryService;
 import com.example.posts.service.PostService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,17 +12,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/edit-category")
 public class EditCategoryServlet extends HttpServlet {
-    PostJdbcDao postJdbcDao = new PostJdbcDao();
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        CategoryJdbcDao categoryJdbcDao = new CategoryJdbcDao();
+        List<Category> categoryList = categoryJdbcDao.findAll();
+        int id = Integer.parseInt(req.getParameter("id"));
+        Category category = categoryJdbcDao.findById(id);
+        req.setAttribute("id",id);
+        req.setAttribute("nameCategory",category.getNameCategory());
+        req.setAttribute("categorys",categoryList);
         req
-                .getRequestDispatcher("/WEB-INF/edit-post-form.jsp")
+                .getRequestDispatcher("/WEB-INF/edit-category-form.jsp")
                 .forward(req, resp);
 
 
@@ -31,12 +39,13 @@ public class EditCategoryServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Integer id = Integer.parseInt(req.getParameter("id"));
-        String title = req.getParameter("title");
-        String author = req.getParameter("author");
-        String content = req.getParameter("content");
-        PostService postService = new PostService();
-        postService.updatePost(id ,title, author, content);
-        resp.sendRedirect("posts");
+        String nameCategory = req.getParameter("nameCategory");
+//        CategoryJdbcDao categoryJdbcDao = new CategoryJdbcDao();
+//        Category category = new Category(id,nameCategory);
+//        categoryJdbcDao.update(category);
+        CategoryService categoryService = new CategoryService();
+        categoryService.updateCategory(id,nameCategory);
+        resp.sendRedirect("/categorys");
 
 
     }

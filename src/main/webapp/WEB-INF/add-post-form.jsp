@@ -58,6 +58,9 @@
         <div class="input-group mb-3">
             <input type="text" class="form-control" name="author" placeholder="Author...">
         </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="pictureUrl" placeholder="URL Image...">
+        </div>
 
         <div class="input-group mb-3">
             <textarea class="form-control" name="content" placeholder="Your content.."></textarea>

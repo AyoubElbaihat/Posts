@@ -50,15 +50,11 @@
 <div class="container">
     <h1>Edit post</h1>
 
-    <form action="${pageContext.request.contextPath}/edit" method="post">
-        <label>Id:</label><br>
-        <input type="text" name="id" value="${post.id}"><br>
-        <label>Title:</label><br>
-        <input type="text" name="title" value="${post.title}"><br>
-        <label>Author:</label><br>
-        <input type="text" name="author" value="${post.author}"><br>
-        <label>Content:</label><br>
-        <textarea name="content" value="${post.content}"></textarea><br>
+    <form action="${pageContext.request.contextPath}/edit-category" method="post">
+
+        <input type="hidden" name="id" value="${id}"><br>
+        <label>Name Category:</label><br>
+        <input type="text" name="nameCategory" value="${nameCategory}"><br>
         <button type="submit">Save</button>
     </form>
 
