@@ -1,6 +1,8 @@
 package com.example.posts.servlet;
 
+import com.example.posts.model.Category;
 import com.example.posts.model.Post;
+import com.example.posts.service.CategoryService;
 import com.example.posts.service.PostService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,6 +18,8 @@ public class PostListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Category> categoryList = new CategoryService().fetchAllCategory();
+        req.setAttribute("categorys", categoryList);
         PostService postService = new PostService();
         List<Post> postList = postService.fetchAllPosts();
 

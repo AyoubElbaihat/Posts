@@ -58,6 +58,14 @@
         <input type="text" name="author" value="${author}"><br>
         <label>Image:</label><br>
         <input type="text" name="pictureUrl" value="${pictureUrl}"><br>
+        <label>Category:</label><br>
+        <div class="input-group mb-3">
+            <select name="idCategory" class="form-select">
+                <c:forEach items="${categorys}" var="category">
+                    <option value="${category.id}">${category.nameCategory}</option>
+                </c:forEach>
+            </select>
+        </div>
         <label>Content:</label><br>
         <textarea name="content" value="${content}"></textarea><br>
         <button type="submit">Save</button>

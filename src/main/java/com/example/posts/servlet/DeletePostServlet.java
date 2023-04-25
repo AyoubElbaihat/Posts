@@ -3,6 +3,7 @@ package com.example.posts.servlet;
 import com.example.posts.Dao.PostJdbcDao;
 
 import com.example.posts.model.Post;
+import com.example.posts.service.PostService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,10 +18,10 @@ public class DeletePostServlet extends HttpServlet {
 
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            PostJdbcDao postJdbcDao = new PostJdbcDao();
+            PostService postService = new PostService();
             Integer postId = Integer.parseInt(req.getParameter("id"));
             Post postToDelete = new Post(postId);
-            postJdbcDao.delete(postToDelete);
+            postService.deletePost(postToDelete);
             resp.sendRedirect("list-post");
         }
 

@@ -14,41 +14,49 @@ import java.util.List;
 
 @Path("posts")
 public class PostResource {
-    PostJdbcDao postJdbcDao = new PostJdbcDao();
+    PostService postService = new PostService();
     @GET
 
     @Produces(value = MediaType.APPLICATION_JSON)
-    public List<Post> findAll(){
-        return postJdbcDao.findAll();
+    public Response findAll(){
+        List<Post> postList = postService.fetchAllPosts();
+        return Response.ok(postList).build();
     }
     @GET
     @Path("/{id}")
     @Produces(value = MediaType.APPLICATION_JSON)
-    public Post getPostById(@PathParam("id") int id){
-      return postJdbcDao.findById(id);
+    public Response getPostById(@PathParam("id") int id){
+      Post foundedPost =postService.findById(id);
+      return Response.ok(foundedPost).build();
     }
+
     @POST
+    @Produces(value = MediaType.APPLICATION_JSON)
     @Consumes(value = MediaType.APPLICATION_JSON)
     public Response creatPost(Post post){
-        postJdbcDao.create(post);
+        Post postCreated = postService.createPost(post.getTitle(), post.getAuthor(), post.getContent(),
+                post.getPictureUrl(), post.getCategory().getId());
         return Response
                 .status(Response.Status.CREATED)
-                .entity(post)
+                .entity(postCreated)
                 .build();
     }
     @DELETE
-    @Path("/delete/{id}")
-    public void delete(@PathParam("id") int id) {
-        Post postToDelete = postJdbcDao.findById(id);
-        postJdbcDao.delete(postToDelete);
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int id) {
+
+        Post postToDelete = postService.findById(id);
+        if(postToDelete == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        postService.deletePost(postToDelete);
+        return Response.noContent().build();
     }
     @PUT
-    @Path("/edit/{id}")
-    public Post update(@PathParam("id") int id,Post newPost) {
-        postJdbcDao.create(newPost);
-        Post postToUpdate = postJdbcDao.findById(id);
-        newPost.setId(postToUpdate.getId());
-        postJdbcDao.update(newPost);
-        return newPost;
+    @Path("/{id}")
+    @Consumes(value = MediaType.APPLICATION_JSON)
+    public Response update(@PathParam("id") int id,Post post) {
+        Post updetedPost = postService.updatePost2(post);
+        return Response.ok(updetedPost).build();
     }
 }

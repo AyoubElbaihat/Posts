@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UserJdbcDao implements UserDao{
     @Override
-    public boolean create(User entity) {
+    public User create(User entity) {
         Connection connection = ConnectionManager.getInstance();
         boolean insertOk = false;
         try{
@@ -22,7 +22,7 @@ public class UserJdbcDao implements UserDao{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return insertOk;
+        return entity;
     }
 
     @Override

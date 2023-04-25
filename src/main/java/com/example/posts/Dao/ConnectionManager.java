@@ -48,7 +48,6 @@ public class ConnectionManager {
     private static Connection INSTANCE;
 
     private ConnectionManager() {
-        // avoid instantiation
     }
 
     public static Connection getInstance() {

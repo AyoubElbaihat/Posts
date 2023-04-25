@@ -61,7 +61,13 @@
         <div class="input-group mb-3">
             <input type="text" class="form-control" name="pictureUrl" placeholder="URL Image...">
         </div>
-
+        <div class="input-group mb-3">
+            <select name="idCategory" class="form-select">
+                <c:forEach items="${categorys}" var="category">
+                    <option value="${category.id}">${category.nameCategory}</option>
+                </c:forEach>
+            </select>
+        </div>
         <div class="input-group mb-3">
             <textarea class="form-control" name="content" placeholder="Your content.."></textarea>
         </div>

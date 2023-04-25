@@ -10,20 +10,25 @@ import java.util.List;
 
 public class CategoryJdbcDao implements CategoryDao{
     @Override
-    public boolean create(Category entity) {
+    public Category create(Category entity) {
         Connection connection = ConnectionManager.getInstance();
-        boolean insertOK = false;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO categorys(nameCategory) VALUES (?)");
 
             preparedStatement.setString(1, entity.getNameCategory());
 
             int rowsAffected = preparedStatement.executeUpdate();
-            insertOK = rowsAffected > 0;
+            if (rowsAffected == 1) {
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    entity.setId(generatedKeys.getInt(1));
+                    return entity;
+                }
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return insertOK;
+        return null;
     }
 
     @Override
@@ -55,6 +60,26 @@ public class CategoryJdbcDao implements CategoryDao{
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT id, nameCategory FROM categorys WHERE id=?");
             statement.setInt(1, integer);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nameCategory = resultSet.getString("nameCategory");
+
+                categoryFound = new Category(id,nameCategory);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categoryFound;
+    }
+    public Category findByName(String string) {
+
+        Category categoryFound = null;
+
+        Connection connection = ConnectionManager.getInstance();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT id, nameCategory FROM categorys WHERE nameCategory=?");
+            statement.setString(1, string);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 int id = resultSet.getInt("id");

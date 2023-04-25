@@ -18,18 +18,27 @@ public class CategoryService {
         return categoryJdbcDao.findAll();
     }
 
-
+    public Category findById(int id){
+        return categoryJdbcDao.findById(id);
+    }
 
     public Category createCategory(String nameCategory) {
         Category c = new Category( nameCategory);
-        categoryJdbcDao.create(c);
-        return c;
+        return categoryJdbcDao.create(c);
+    }
+    public void deleteCategory(Category category){
+        categoryJdbcDao.delete(category);
     }
     public Category updateCategory(Integer id, String nameCategory) {
         Category c = new Category( id, nameCategory);
 
         categoryJdbcDao.update(c);
         return c;
+    }
+    public Category updateCategory2(Category category){
+
+        categoryJdbcDao.update(category);
+        return category;
     }
 
 

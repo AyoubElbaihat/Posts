@@ -11,6 +11,7 @@ public class Post {
     private String content;
     private String pictureUrl;
     private LocalDateTime createdAt;
+    private Category category;
 
     public Post() {
     }
@@ -19,36 +20,41 @@ public class Post {
         this.id = id;
     }
 
-    public Post(Integer id, String title, String author, String content) {
+    public Post(Integer id, String title, String author, String content,Category category) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
+        this.category = category;
+
     }
 
-    public Post(Integer id, String title, String author, String content, String pictureUrl, LocalDateTime createdAt) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.content = content;
-        this.pictureUrl = pictureUrl;
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public Post(Integer id, String title, String author, String content, String pictureUrl) {
+    public Post(Integer id, String title, String author, String content, String pictureUrl, LocalDateTime createdAt,Category category) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
         this.pictureUrl = pictureUrl;
+        this.createdAt = createdAt;
+        this.category = category;
     }
 
-    public Post(String title, String author, String content, String pictureUrl, LocalDateTime createdAt) {
+    public Post(Integer id, String title, String author, String content, String pictureUrl,Category category) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
         this.pictureUrl = pictureUrl;
-        this.createdAt = LocalDateTime.now();
+        this.category = category;
+    }
+
+    public Post(String title, String author, String content, String pictureUrl, LocalDateTime createdAt,Category category) {
+        this.title = title;
+        this.author = author;
+        this.content = content;
+        this.pictureUrl = pictureUrl;
+        this.createdAt = createdAt;
+        this.category = category;
     }
 
     public Integer getId() {
@@ -100,4 +106,11 @@ public class Post {
         this.createdAt = createdAt;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

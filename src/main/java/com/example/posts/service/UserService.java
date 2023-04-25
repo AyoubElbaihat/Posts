@@ -16,9 +16,9 @@ public class UserService {
             throw new UserAlreadyExistException(email);
         } else {
             User newUser = new User(email, password);
-            if (!userJdbcDao.create(newUser)) {
-                throw new Exception("Cannot register user");
-            }
+//            if (!userJdbcDao.create(newUser)) {
+//                throw new Exception("Cannot register user");
+//            }
 
         }
 
